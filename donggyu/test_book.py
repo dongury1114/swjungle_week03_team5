@@ -4,6 +4,7 @@ from collections import deque
 sys.stdin = open("input.txt")
 input = sys.stdin.readline
 
+sys.setrecursionlimit(10**6)
 N, M = map(int, input().split())
 graph = []
 count = 0
