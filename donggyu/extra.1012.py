@@ -32,3 +32,7 @@ for _ in range(T):
                 dfs(i,j)
                 count += 1
     print(count)
+
+#https://fullmoon1344.tistory.com/85
+#if와 for의 영역 항상 신경쓰기
+
