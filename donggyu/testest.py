@@ -1,57 +1,36 @@
-"""
-2차원 토마토를 풀고 이해했다면 충분히 풀 수 있는 문제
-z축을 생각해서 BFS를 돌리면 된다.
-"""
-# 원영씨 시간 메모리 얼마나 걸렸는지도 남겨주세요^_^
-from collections import deque
 import sys
-
-sys.stdin = open("input.txt",'r')
-sys.setrecursionlimit(10**6)
+sys.setrecursionlimit(10 ** 6)
 input = sys.stdin.readline
+sys.stdin = open("input.txt")
 
-
-N, M = map(int, input().split())
-
-graph = []
-
-for _ in range(N):
-  graph.append(list(map(int, input())))
-print(graph)
-
-
-# # 너비 우선 탐색
-# def bfs(x, y):
-#   # 이동할 네 가지 방향 정의 (상, 하, 좌, 우)
-#   dx = [-1, 1, 0, 0] 
-#   dy = [0, 0, -1, 1]
-
-#   # deque 생성
-#   queue = deque()
-#   queue.append((x, y))
-
-#   while queue:
-#     x, y = queue.popleft()
+# dfs
+def dfs(v, group):
+    visited[v] = group # 방문한 노드에 group 할당
+    for i in graph[v]:
+        if visited[i] == 0: # 아직 안 가본 곳이면 방문
+            if not dfs(i, -group):
+                return False
+        elif visited[i] == visited[v]: # 방문한 곳인데, 그룹이 동일하면 False
+            return False
+    return True
     
-#     # 현재 위치에서 4가지 방향으로 위치 확인
-#     for i in range(4):
-#       nx = x + dx[i]
-#       ny = y + dy[i]
+T = int(input())
+for _ in range(T):
+    V, E = map(int, input().split())
+    graph = [[] for i in range(V+1)] # 빈 그래프 생성
+    visited = [0] * (V+1) # 방문한 정점 체크
 
-#       # 위치가 벗어나면 안되기 때문에 조건 추가
-#       if nx < 0 or nx >= N or ny < 0 or ny >= M:
-#         continue
-      
-#       # 벽이므로 진행 불가
-#       if graph[nx][ny] == 0:
-#         continue
-      
-#       # 벽이 아니므로 이동
-#       if graph[nx][ny] == 1:
-#         graph[nx][ny] = graph[x][y] + 1
-#         queue.append((nx, ny))
-  
-#   # 마지막 값에서 카운트 값을 뽑는다.
-#   return graph[N-1][M-1]
+    for _ in range(E):
+        a,b = map(int, input().split())
+        graph[a].append(b) # 무방향 그래프
+        graph[b].append(a) # 무방향 그래프
 
-# print(bfs(0, 0))
+    bipatite = True
+
+    for i in range(1, V+1):
+        if visited[i] == 0: # 방문한 정점이 아니면, dfs 수행
+            bipatite = dfs(i, 1)
+            if not bipatite:
+                break
+
+    print('YES' if bipatite else 'NO')
