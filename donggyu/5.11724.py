@@ -1,29 +1,34 @@
+#연결요소 -> 덩어리 문제
 import sys
 from collections import deque
 
-sys.setrecursionlimit(10 ** 6)
 sys.stdin = open("input.txt")
-input = sys.stdin.readline
+
 
 N, M = map(int, input().split())
-adj = [[] for _ in range(N+1)]
+graph = [[] for _ in range(N+1)]
 visited = [False] * (N+1)
-count = 0
 
-def dfs(v):
-    visited[v] = True
-    for e in adj[v]:
-        if not visited[e]:
-            dfs(e)
+for i in range(M):
+    a, b = map(int, input().split())
+    graph[a].append(b)
+    graph[b].append(a)
 
-for _ in range(M):
-    u, v = map(int, input().split())
-    adj[u].append(v)
-    adj[v].append(u)
+for i in range(N+1):
+    graph[i].sort()
 
-for j in range(1, N +1 ):
-    if not visited[j]:
-        dfs(j)
-        count += 1
+def dfs(V):
 
-print(count)
+    visited[V] = True #실수한 부분
+
+    for i in graph[V]:
+        if visited[i] == False:
+            dfs(i)
+
+result = 0
+for i in range(1, N+1):
+    if visited[i] == False: #항상 신경쓰기
+        dfs(i)
+        result += 1
+
+print(result)

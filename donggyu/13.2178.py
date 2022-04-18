@@ -8,12 +8,10 @@ sys.setrecursionlimit(10**6)
 N, M = map(int, input().split())
 
 graph = [list(map(int, input())) for _ in range (N)]
-
+que = deque([])
 
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
-
-que = deque([])
 
 
 def bfs(x, y):
@@ -26,7 +24,7 @@ def bfs(x, y):
             nx= dx[i] + x
             ny= dy[i] + y
             
-            if nx < 0 or nx >= N or ny < 0 or ny >= M:
+            if (N-1)>= nx >= 0 and  0 <= ny <=(M-1):
                 continue
 
     # 벽이므로 진행 불가

@@ -2,47 +2,36 @@ import sys
 from collections import deque
 
 sys.stdin = open("input.txt")
-input = sys.stdin.readline
 
-N, M, V = map(int, input().split())
+N = int(input())
 
-graph = []
-visited = [False] * (N + 1)
+#부모를 구한다? dfs로 한번 파고 들어가볼수 있지 않을까?
+#루트는 1로 고정
 
-for i in range(N+1):
-    graph.append([])
+graph =[[] for _ in range(N+1)]
 
-for i in range(M):
+visited = [False] * (N+1)
+
+for i in range(N-1): #반복횟수 생각하며 작성하자
     a, b = map(int, input().split())
     graph[a].append(b)
     graph[b].append(a)
 
-for i in range(N + 1):
+for i in range(N):
     graph[i].sort()
 
-def dfs(v):
-    visited[v] = True
-    print(v, end = " ")
+#이부분 이해가 어려웜...
+answer = [0] * (N+1)
 
-    for i in graph[v]:
+
+def dfs(V):
+    visited[V] = True
+    for i in graph[V]:
         if visited[i] == False:
+            answer[i] = V
             dfs(i)
 
-def bfs(v):
-    que = deque([])
-    visited[v] = True
-    que.append(v)
-    print(v, end = " ")
-    while que:
-        v = que.popleft()
 
-        for i in graph[v]:
-            if  visited[i] == False:
-                visited[i] = True
-                print(i, end = " ")
-                que.append(i)
-
-dfs(V)
-print()
-visited = [False] * (N+1)
-bfs(V)
+dfs(1)
+for i in range(2, len(answer)):
+    print(answer[i])
