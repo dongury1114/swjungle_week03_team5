@@ -1,7 +1,6 @@
 import sys
 
 sys.stdin = open("input.txt")
-# default 값이 1000이다
 sys.setrecursionlimit(10 ** 6)
 input = sys.stdin.readline
 

@@ -17,3 +17,5 @@ def find(x):
 
 print(Vroot)
 print(find(3))
+
+#https://hillier.tistory.com/54
