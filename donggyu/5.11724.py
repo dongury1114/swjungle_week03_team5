@@ -1,9 +1,6 @@
-#연결요소 -> 덩어리 문제
 import sys
-from collections import deque
 
 sys.stdin = open("input.txt")
-
 
 N, M = map(int, input().split())
 graph = [[] for _ in range(N+1)]

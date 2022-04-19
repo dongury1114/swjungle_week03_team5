@@ -3,7 +3,6 @@ from collections import deque
 
 sys.stdin = open("input.txt")
 
-
 N, M, V = map(int, input().split())
 graph = [[] for _ in range(N+1)]
 visited = [False] * (N+1)
@@ -17,9 +16,6 @@ for i in range(M):
 
 for i in range(N+1):
     graph[i].sort()
-
-# print(N, M, V)
-# print(graph)
 
 def dfs(V):
 
