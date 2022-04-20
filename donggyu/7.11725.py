@@ -1,40 +1,35 @@
 import sys
 from collections import deque
-
 sys.setrecursionlimit(10 ** 6)
-sys.stdin = open("input.txt")
-input = sys.stdin.readline
 
+sys.stdin = open("input.txt")
 N = int(input())
 
-graph = []
-visited = [False] * (N+1)
-answer = []
-for i in range(N+1):
-    graph.append([])
+#부모를 구한다? dfs로 한번 파고 들어가볼수 있지 않을까?
+#루트는 1로 고정
 
-for i in range(N-1):
+graph =[[] for _ in range(N+1)]
+
+visited = [False] * (N+1)
+
+for i in range(N-1): #반복횟수 생각하며 작성하자
     a, b = map(int, input().split())
     graph[a].append(b)
     graph[b].append(a)
 
-for i in range(N-1):
+for i in range(N):
     graph[i].sort()
 
-for i in range(N+1):
-    answer.append(1)
+answer = [0] * (N+1)
 
-def dfs(v):
-    visited[v] = True
-
-    for i in graph[v]:
+def dfs(V):
+    visited[V] = True
+    for i in graph[V]:
         if visited[i] == False:
-            answer[i] = v
+            answer[i] = V
             dfs(i)
 
-#부모 노드만 찾아서 출력하면 된다! // 어떻게 ?
-#answer라는 리스트를 만들어서, 해결을 해야한다 -> 기존 dfs 에서 수정 
-dfs(1)
 
+dfs(1)
 for i in range(2, len(answer)):
     print(answer[i])
