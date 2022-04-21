@@ -8,7 +8,7 @@ graph = [list(input().strip().split()) for _ in range(n)]
 
 dx = [-1, 1, 0, 0]
 dx = [0, 0, -1, 1]
-visited = [[[[False] * m for _ in range(n)] for _ in range(m)] for _ in range(n)]
+visited = [[[[False] * m for _ in range(n)] for _ in range(m)] for _ in range(n)] 
 
 print(visited)
 
